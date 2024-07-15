@@ -32,7 +32,7 @@ def dfs(index, eggs):
         
         # 현 index 위치의 계란을 제외하고 모두 깨졌다면
         if is_all_broke:
-            dfs(index+1, eggs)
+            dfs(N, eggs)
             
 N = int(input())
 eggs = [list(map(int, input().split())) for _ in range(N)]
