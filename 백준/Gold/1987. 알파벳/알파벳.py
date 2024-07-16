@@ -15,17 +15,15 @@ def dfs(x, y, cnt):
         ny = y + dy[i]
 
         if 0<=nx<R and 0<=ny<C:
-            if visited[graph[nx][ny]] == 0: # 아직 방문하지 않은 알파벳일 경우
-                visited[graph[nx][ny]] = 1 # 방문처리
-                cnt += 1
-                dfs(nx, ny, cnt)
-                visited[graph[nx][ny]] = 0
-                cnt -= 1
+            if graph[nx][ny] not in visited: # 아직 방문하지 않은 알파벳일 경우
+                visited.add(graph[nx][ny])
+                dfs(nx, ny, cnt+1)
+                visited.remove(graph[nx][ny])
 
 R, C = map(int, input().split())
 graph = [list(input().rstrip()) for _ in range(R)]
-visited = defaultdict(int)
-visited[graph[0][0]] = 1 # 1행1열 방문처리
+visited = set()
+visited.add(graph[0][0])
 cnt, count = 0, 0
 dfs(0, 0, cnt+1)
 print(count)
