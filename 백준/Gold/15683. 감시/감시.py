@@ -40,9 +40,9 @@ def dfs(depth, cctv):
         total_cnt = min(cnt, total_cnt)
         return
     
+    cctv_copy = copy.deepcopy(cctv)
     x, y, cctv_type = cctv_info[depth]
     for dir in direction[cctv_type]:
-        cctv_copy = copy.deepcopy(cctv)
         check(x, y, dir, cctv_copy)
         dfs(depth+1, cctv_copy)
         cctv_copy = copy.deepcopy(cctv)
