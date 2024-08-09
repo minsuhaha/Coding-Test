@@ -1,20 +1,12 @@
-from collections import deque
 def solution(prices):
-    prices_q = deque(prices)
     answer = []
-    
-    while prices_q:
+    for i in range(len(prices)):
         time = 0
-        price = prices_q.popleft()
-        
-        for p in prices_q:
+        for j in range(i+1, len(prices)):
             time += 1
-            if price > p:
+            if prices[i] > prices[j]:
                 break
         answer.append(time)
-    
+        
     return answer
                 
-    
-            
-        
