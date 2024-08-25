@@ -15,17 +15,15 @@ def bfs(x):
         x = queue.popleft()
         
         # 왼쪽 이동
-        if 0 < x - graph[x] < n+1:
-            if not visited[x-graph[x]]:
-                cnt += 1
-                queue.append(x-graph[x])
-                visited[x-graph[x]] = True
+        if 0 < x - graph[x] < n+1 and not visited[x-graph[x]]:
+            cnt += 1
+            queue.append(x-graph[x])
+            visited[x-graph[x]] = True
         # 오른쪽 이동
-        if 0 < x + graph[x] < n+1:
-            if not visited[x+graph[x]]:
-                cnt += 1
-                queue.append(x+graph[x])
-                visited[x+graph[x]] = True
+        if 0 < x + graph[x] < n+1 and not visited[x+graph[x]]:
+            cnt += 1
+            queue.append(x+graph[x])
+            visited[x+graph[x]] = True
     return cnt
 
 print(bfs(s))
