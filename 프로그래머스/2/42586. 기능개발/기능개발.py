@@ -10,7 +10,7 @@ def solution(progresses, speeds):
             time += speeds[i]
             day += 1
         answer.append(day)
-    
+        
     cnt = 1
     for i in range(len(answer)-1):
         if answer[i] == answer[i+1]:
