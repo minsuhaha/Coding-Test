@@ -10,6 +10,7 @@ def solution(n, results):
     def bfs(graph, x):
         queue = deque([x])
         visited = [False]*(n+1)
+        visited[x] = True
         cnt = 0
         
         while queue:
