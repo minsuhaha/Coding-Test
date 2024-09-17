@@ -13,7 +13,7 @@ def dfs(num):
     
     if len(res) == n:
         print(*res)
-        return
+        exit()
     
     if num % 3 == 0 and check_dict[num//3] > 0:
         check_dict[num//3] -= 1
