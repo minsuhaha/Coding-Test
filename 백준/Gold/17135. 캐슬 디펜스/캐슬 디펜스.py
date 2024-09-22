@@ -27,12 +27,13 @@ def bfs(anch1, anch2, anch3):
                     die_set.add((y, x))
                     break
                     
-                for i in range(3):
-                    nx = x + dx[i]
-                    ny = y + dy[i]
+                if dist < D:
+                    for i in range(3):
+                        nx = x + dx[i]
+                        ny = y + dy[i]
 
-                    if 0<=nx<M and 0<=ny<N and dist < D:
-                        queue.append((ny, nx, dist+1))
+                        if 0<=nx<M and 0<=ny<N:
+                            queue.append((ny, nx, dist+1))
 
         for y, x in die_set:
             graph_copy[y][x] = 0
