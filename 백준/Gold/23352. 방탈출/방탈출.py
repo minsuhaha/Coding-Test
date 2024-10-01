@@ -5,25 +5,23 @@ input = sys.stdin.readline
 dx = [-1, 1, 0, 0]
 dy = [0, 0, -1, 1]
 
-def bfs(sx, sy, cnt):
-    queue = deque([(sx, sy, cnt)])
+def bfs(sx, sy, c):
+    queue = deque([(sx, sy, c)])
     visited = [[False]*m for _ in range(n)]
     visited[sx][sy] = True
 
     while queue:
         x, y, cnt = queue.popleft()
 
-        flag = False
         for i in range(4):
             nx, ny = x + dx[i], y + dy[i]
-
             if 0<=nx<n and 0<=ny<m:
                 if graph[nx][ny] != 0 and not visited[nx][ny]:
                     visited[nx][ny] = True
                     queue.append((nx, ny, cnt+1))
-                    flag = True
-        if not flag:
-            ans.append((cnt, graph[sx][sy]+graph[x][y])) 
+            
+
+    ans.append((cnt, graph[sx][sy]+graph[x][y])) 
 
 
 n, m = map(int, input().split())
