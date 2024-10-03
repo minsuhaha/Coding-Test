@@ -23,10 +23,9 @@ def dfs(node, cnt):
         return
     
     for i in range(node+1, n+1):
-        if not visited[i]:
-            visited[i] = True
-            dfs(i, cnt+1)
-            visited[i] = False
+        visited[i] = True
+        dfs(i, cnt+1)
+        visited[i] = False
 
 n = int(input())
 graph = [list(map(int, input().split())) for _ in range(n)]
