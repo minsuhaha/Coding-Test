@@ -20,17 +20,14 @@ def spread():
     
     while queue:
         x, y = queue.popleft()
-        cnt = 0
+        tmp = graph[x][y] // 5
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
 
             if 0<=nx<r and 0<=ny<c and graph[nx][ny] != -1:
-                tmp = graph[x][y] // 5
                 graph_copy[nx][ny] += tmp
-                cnt += 1
-        
-        graph[x][y] -= (tmp * cnt)
+                graph_copy[x][y] -= tmp
     
     for i in range(r):
         for j in range(c):
