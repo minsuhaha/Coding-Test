@@ -16,17 +16,11 @@ for _ in range(k):
         nx = (x + move[d][0]*s) % n
         ny = (y + move[d][1]*s) % n
         graph[nx][ny].append((m, s, d))
-
   
     for i in range(n):
         for j in range(n):
-            # 3. 이동이 끝난 후, 하나의 칸에 1개의 원자가 있을경우
-            if len(graph[i][j]) == 1:
-                _m, _s, _d = graph[i][j].pop()
-                move_graph.append((i, j, _m, _s, _d))
-            
             # 2. 이동이 끝난 후, 하나의 칸에 2개 이상의 원자가 있는 경우
-            elif len(graph[i][j]) >= 2:
+            if len(graph[i][j]) >= 2:
                 sum_m, sum_s, even_cnt, odd_cnt = 0, 0, 0, 0
                 n_cnt = len(graph[i][j])
                 while graph[i][j]:
@@ -39,13 +33,20 @@ for _ in range(k):
                     else:
                         odd_cnt += 1
                 
+                if sum_m // 5 == 0:
+                    continue
+                    
                 if even_cnt == n_cnt or odd_cnt == n_cnt:
                     move_d = (0, 2, 4, 6)
                 else:
                     move_d = (1, 3, 5, 7)
-                
-                if sum_m // 5 != 0:
-                    for x in range(4):
-                        move_graph.append((i, j, sum_m//5, sum_s//n_cnt, move_d[x]))
+            
+                for x in range(4):
+                    move_graph.append((i, j, sum_m//5, sum_s//n_cnt, move_d[x]))
+
+            # 3. 이동이 끝난 후, 하나의 칸에 1개의 원자가 있을경우
+            elif len(graph[i][j]) == 1:
+                _m, _s, _d = graph[i][j].pop()
+                move_graph.append((i, j, _m, _s, _d))
 
 print(sum(move[2] for move in move_graph))
