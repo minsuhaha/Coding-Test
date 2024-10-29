@@ -6,7 +6,6 @@ graph = [list(map(int, input().split())) for _ in range(n)]
 
 move = [(-1, 0), (1, 0), (0, -1), (0, 1)] # 상하좌우
 
-
 def high_cleaner():
     move = [(0, 1), (-1, 0), (0, -1), (1, 0)] # 우상좌하
     x, y = up, 0
@@ -76,9 +75,4 @@ for _ in range(t):
     high_cleaner()
     low_cleaner()
 
-total = 0
-for i in range(n):
-    for j in range(m):
-        if graph[i][j] > 0:
-            total += graph[i][j]
-print(total)
+print(sum(map(sum, graph))+2)
