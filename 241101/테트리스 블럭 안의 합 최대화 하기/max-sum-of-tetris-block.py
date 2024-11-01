@@ -48,5 +48,5 @@ for i in range(n):
         visited[i][j] = True
         dfs(i, j, 1, graph[i][j])
         dfs2(i, j)
-        visited[i][j] = True
+        visited[i][j] = False
 print(max_num)
