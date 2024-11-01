@@ -30,7 +30,7 @@ def dfs2(x, y):
         nx = x + dx[i]
         ny = y + dy[i]
 
-        if 0<=nx<n and 0<=ny<m and not visited[x][y]:
+        if 0<=nx<n and 0<=ny<m and not visited[nx][ny]:
             res.append(graph[nx][ny])
     
     if len(res) == 4:
