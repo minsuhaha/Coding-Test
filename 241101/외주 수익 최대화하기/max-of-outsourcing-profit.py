@@ -10,18 +10,20 @@ input = sys.stdin.readline
 n = int(input())
 work = [list(map(int, input().split())) for _ in range(n)]
 
-max_total = 0
+def dfs(idx, start, total):
+    global max_total
+    if start >= n or idx == n:
+        max_total = max(max_total, total)
+        return
+    
+    if start + work[idx][0] <= n:
+        dfs(idx+1, start + work[idx][0], total+work[idx][1])
+
+    elif start + work[idx][0] > n:
+        dfs(idx+1, start, total)
+
+max_total = 0 
 for i in range(n):
-    time = n
-    total = 0
-    idx = i
-    while True:
-        time -= (work[idx][0] + idx)
-        if time < 0:
-            break
-        total += work[idx][1]
-        idx += 1
-        if idx == n:
-            break
-    max_total = max(max_total, total)
+    dfs(i, i, 0)
+
 print(max_total)
