@@ -10,20 +10,19 @@ input = sys.stdin.readline
 n = int(input())
 work = [list(map(int, input().split())) for _ in range(n)]
 
-def dfs(idx, start, total):
+
+def dfs(day, total):
     global max_total
-    if start >= n or idx == n:
+    if day >= n:
         max_total = max(max_total, total)
         return
-    
-    if start + work[idx][0] <= n:
-        dfs(idx+1, start + work[idx][0], total+work[idx][1])
 
-    elif start + work[idx][0] > n:
-        dfs(idx+1, start, total)
+    # 뛰어넘기
+    dfs(day+1, total)
 
-max_total = 0 
-for i in range(n):
-    dfs(i, i, 0)
+    if day + work[day][0] <= n:
+        dfs(day+work[day][0], total+work[day][1])
 
+max_total = 0
+dfs(0, 0)
 print(max_total)
