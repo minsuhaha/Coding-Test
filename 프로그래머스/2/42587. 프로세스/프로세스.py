@@ -1,29 +1,22 @@
 from collections import deque
 def solution(priorities, location):
-    queue = deque((idx, num) for idx, num in enumerate(priorities))
-    answer = []
+    process = deque()
+    for idx, value in enumerate(priorities):
+        process.append((idx, value))
     
-    # while queue:
-    #     idx, num = queue.popleft()
-    #     flag = True
-    #     for idx2, num2 in queue:
-    #         if num < num2:
-    #             queue.append((idx, num))
-    #             flag = False
-    #             break
-    #     if flag:
-    #         answer.append(idx)
-    
-    while queue:
-        idx, num = queue.popleft()
-        
-        if any(num < num2 for idx2, num2 in queue):
-            queue.append((idx, num))
+    seq = 0
+    while process:
+        idx, proc = process.popleft()
+        flag = True
+        for i, p in process:
+            if proc < p:
+                flag = False
+                break
+        if flag:
+            seq += 1
+            if location == idx:
+                return seq
         else:
-            answer.append(idx)
-            
-    return answer.index(location)+1
+            process.append((idx, proc))
         
-        
-            
         
