@@ -1,23 +1,15 @@
 import heapq
 def solution(scoville, K):
-    heapq.heapify(scoville)
+    heapq.heapify(scoville) # 기본값 : 최소값부터 오름차순 정렬
     cnt = 0
-    
     while scoville[0] < K:
-        if len(scoville) < 2:
+        first = heapq.heappop(scoville)
+        if not scoville:
             return -1
-        
-        new_food = 0
-        food_1 = heapq.heappop(scoville)
-        food_2 = heapq.heappop(scoville)
-        
-        new_food = food_1 + (food_2*2)
-        heapq.heappush(scoville, new_food)
+        second = heapq.heappop(scoville)
+        heapq.heappush(scoville, first+(second*2))
         cnt += 1
-    
-    return cnt
         
-    
-    
+    return cnt
     
     
