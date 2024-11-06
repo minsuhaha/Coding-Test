@@ -1,28 +1,26 @@
-def solution(numbers):
-    def prime(number):
-        if number < 2:
-            return False
-        for i in range(2, number):
-            if number % i == 0:
-                return False
-        return True
+from itertools import permutations
+
+def sosu(n):
+    if n < 2:
+        return False
     
-    def dfs(res):
-        if 0 < len(res) <= len(numbers):
-            if prime(int(res)):
-                numbers_cnt.add(res)
+    for i in range(2, n//2+1):
+        if n%i == 0:
+            return False
         
-        for i, number in enumerate(numbers):
-            if visited[i]:
-                continue
-            if res == '' and number == '0':
-                continue
-            visited[i] = True
-            dfs(res+number)
-            visited[i] = False
-                
+    return True    
+
+def solution(numbers):
+    answer = 0
+    p = []
+    result = []
+    
+    for i in range(1, len(numbers)+1):
+        p.extend(permutations(numbers, i))
+        result = [int(''.join(i)) for i in p]
+    
+    for i in set(result):
+        if sosu(i):
+            answer+=1
             
-    visited = [False] * len(numbers)
-    numbers_cnt = set()
-    dfs('')
-    return len(numbers_cnt)
+    return answer
