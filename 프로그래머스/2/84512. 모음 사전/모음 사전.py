@@ -1,14 +1,19 @@
+from collections import defaultdict
 def solution(word):
-    words = "AEIOU"
-    def dfs(prior_word):
-        if len(prior_word) == 5:
+    alpha = ['A', 'E', 'I', 'O', 'U']
+    
+    def dfs(words):
+        nonlocal rank
+        if len(words) == 5:
             return
         
-        for i in range(5):
-            res.append(prior_word + words[i])
-            dfs(prior_word + words[i])
-    
-    res = []
+        for alp in alpha:
+            if words+alp not in res:
+                rank += 1
+                res[words+alp] = rank
+                dfs(words+alp)
+                
+    res = defaultdict(int)
+    rank = 0
     dfs('')
-    return res.index(word) + 1
-            
+    return res[word]
