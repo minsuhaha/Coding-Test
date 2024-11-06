@@ -1,27 +1,28 @@
 def solution(numbers):
-    
-    def is_prime(n):
-        if n < 2:
+    def prime(number):
+        if number < 2:
             return False
-        for i in range(2, int(n**0.5)+1):
-            if n % i == 0:
+        for i in range(2, number):
+            if number % i == 0:
                 return False
         return True
     
     def dfs(res):
-        if res and is_prime(int(res)):
-            prime_set.add(res)
+        if 0 < len(res) <= len(numbers):
+            if prime(int(res)):
+                numbers_cnt.add(res)
         
-        for i in range(len(numbers)):
-            if not res and numbers[i] == '0':
+        for i, number in enumerate(numbers):
+            if visited[i]:
                 continue
-            if not visited[i]:
-                visited[i] = True
-                dfs(res+numbers[i])
-                visited[i] = False
-        
-    
+            if res == '' and number == '0':
+                continue
+            visited[i] = True
+            dfs(res+number)
+            visited[i] = False
+                
+            
     visited = [False] * len(numbers)
-    prime_set = set()
+    numbers_cnt = set()
     dfs('')
-    return len(prime_set)
+    return len(numbers_cnt)
