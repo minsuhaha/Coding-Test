@@ -1,24 +1,23 @@
 import heapq
 def solution(jobs):
-    
-    heap = []
-    start_time = 0
-    before_time = -1
-    total = 0
+    q = []
+    prior = -1
+    now = 0
+    total_work = 0
     finish = 0
     while finish < len(jobs):
         for job in jobs:
-            if before_time < job[0] <= start_time:
-                heapq.heappush(heap, (job[1], job[0]))
+            if prior < job[0] <= now:
+                heapq.heappush(q, (job[1], job[0]))
         
-        if len(heap):
-            now_job = heapq.heappop(heap)
-            before_time = start_time
-            start_time = now_job[0] + before_time
-            total += (now_job[0] + before_time - now_job[1])
+        if q:
+            work_time, start_time = heapq.heappop(q)
+            prior = now
+            now += work_time
+            total_work += (work_time + prior - start_time)
             finish += 1
         else:
-            start_time += 1
-                
-    return total // len(jobs)
-        
+            now += 1
+    
+    return total_work // len(jobs)
+            
