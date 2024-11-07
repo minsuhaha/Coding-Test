@@ -1,21 +1,18 @@
 from collections import defaultdict
 def solution(tickets):
+    ticket_dict = defaultdict(list)
+    for start, end in tickets:
+        ticket_dict[start].append(end)
     
-    def dfs(city):
-        
-        while tickets_dict[city]:
-            next_city = tickets_dict[city].pop(0)
-            dfs(next_city)
-        res.append(city)
-        
-    tickets_dict = defaultdict(list)
-    for a, b in tickets:
-        tickets_dict[a].append(b)
-    for city in tickets_dict:
-        tickets_dict[city].sort() # 오름차순으로 정렬
+    for key, value in ticket_dict.items():
+        value.sort(reverse=True)
     
+    def dfs(node):
+        while ticket_dict[node]:
+            next_node = ticket_dict[node].pop()
+            dfs(next_node)
+        res.append(node)
+        
     res = []
     dfs('ICN')
     return res[::-1]
-        
-        
