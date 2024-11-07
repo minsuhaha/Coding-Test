@@ -1,18 +1,17 @@
 from collections import deque
 def solution(people, limit):
-    people.sort(reverse=True)
-    queue = deque(people)
+    people.sort()
+    
     cnt = 0
-    while queue:
-        p = queue.popleft() # 가장 큰 값 빼주기
-        max_people = 1 # 최대 2명까지 가능
-        total = p
-        while queue and max_people==1:
-            if total+queue[-1] > limit:
-                break
-            queue.pop()
-            max_people += 1
+    L, R = 0, len(people)-1
+    while L <= R:
+        if people[L] + people[R] <= limit:
+            L += 1
+            R -= 1
+        else:
+            R -= 1
         cnt += 1
     return cnt
-            
-             
+        
+        
+    
