@@ -1,26 +1,35 @@
 import heapq
 def solution(n, costs):
     graph = [[] for _ in range(n)]
-    for n1, n2, cost in costs:
-        graph[n1].append((n2, cost))
-        graph[n2].append((n1, cost))
+    for v1, v2, c in costs:
+        graph[v1].append((v2, c))
+        graph[v2].append((v1, c))
         
-    heap = []
-    visited = [False] * n
-    visited[0] = True
     
-    for n2, cost in graph[0]:
-        heapq.heappush(heap, (cost, n2))
-    
-    total = 0
-    while heap:
-        cost, node = heapq.heappop(heap)
+    def dijkstra(node):
+        q = []
+        heapq.heappush(q, (0, node))
+        total_cost = 0
+        node_cnt = 0
         
-        if not visited[node]:
-            visited[node] = True
-            total += cost
+        while q:
+            cost, node = heapq.heappop(q)
             
-            for next_node in graph[node]:
-                heapq.heappush(heap, (next_node[1], next_node[0]))
-    
-    return total
+            if visited[node]:
+                continue
+            
+            visited[node] = True
+            total_cost += cost
+            
+            node_cnt += 1
+            if node_cnt == n:
+                return total_cost
+            
+            for next_node, next_cost in graph[node]:
+                if not visited[next_node]:
+                    heapq.heappush(q, (next_cost, next_node))
+        
+    visited = [False] * n
+    return dijkstra(0)
+        
+        
