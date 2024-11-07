@@ -1,17 +1,15 @@
 def solution(numbers, target):
-    answer = 0
-    
     def dfs(idx, total):
-        nonlocal answer
+        nonlocal cnt
         if idx == len(numbers):
             if total == target:
-                answer += 1
+                cnt += 1
             return
         
-        dfs(idx+1, total+numbers[idx]) # 양수
-        dfs(idx+1, total-numbers[idx]) # 음수
-
-    dfs(0, 0)
-    return answer
-                
+        dfs(idx+1, total+numbers[idx])
+        dfs(idx+1, total-numbers[idx])
         
+    cnt = 0
+    res = []
+    dfs(0, 0)
+    return cnt
