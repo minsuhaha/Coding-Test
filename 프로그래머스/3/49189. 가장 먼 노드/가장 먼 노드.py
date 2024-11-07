@@ -1,29 +1,28 @@
 from collections import deque
 def solution(n, edge):
     graph = [[] for _ in range(n+1)]
-    for e1, e2 in edge:
-        graph[e1].append(e2)
-        graph[e2].append(e1)
-    
-    def bfs(start, cnt):
-        queue = deque([(start,cnt)])
-        visited[start] = 1
+    for v1, v2 in edge:
+        graph[v1].append(v2)
+        graph[v2].append(v1)
+        
+    def bfs(node):
+        queue = deque([node])
+        visited[node] = 0
         
         while queue:
-            node, cnt = queue.popleft()
+            now_node = queue.popleft()
             
-            for next_node in graph[node]:
-                if not visited[next_node]:
-                    visited[next_node] = visited[node] + 1
-                    queue.append((next_node, cnt+1))
-        
-        return cnt
+            for next_node in graph[now_node]:
+                if visited[next_node] == -1:
+                    visited[next_node] = visited[now_node] + 1
+                    queue.append(next_node)
+                    
+        return visited[now_node]    
     
-    visited = [0] * (n+1)
-    cnt = bfs(1, 1)
-    return visited.count(cnt)
-    
-    
-    
-    
-        
+    visited = [-1] * (n+1)
+    max_length = bfs(1)
+    cnt = 0
+    for i in range(1, n+1):
+        if visited[i] == max_length:
+            cnt += 1
+    return cnt
