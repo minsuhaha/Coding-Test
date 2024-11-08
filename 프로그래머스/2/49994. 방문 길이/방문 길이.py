@@ -1,26 +1,21 @@
-from collections import deque
 def solution(dirs):
-    visited = set()
-    cnt = 0
-    x, y = 5, 5
-
-    for d in dirs:
-        nx, ny = x, y
-        if d == 'U':
-            nx -= 1
-        elif d == 'D':
-            nx += 1
-        elif d == 'R':
-            ny += 1
-        elif d == 'L':
-            ny -= 1
-
-        if nx < 0 or nx >= 11 or ny < 0 or ny >= 11:
-            nx, ny = x, y
-            continue
+    graph = [[] for _ in range(11)]
+    for i in range(11):
+        for j in range(11):
+            graph[i].append((i, j))
+    
+    move = {'U': (-1, 0), 'D': (1, 0), 'R': (0, 1), 'L': (0, -1)}
+    def bfs(x, y):
+        for d in dirs:
+            nx = x + move[d][0]
+            ny = y + move[d][1]
             
-        if ((x,y,nx,ny)) not in visited and ((nx,ny,x,y)) not in visited:
-            visited.add((x,y,nx,ny))
-            cnt += 1
-        x, y = nx, ny
-    return cnt
+            if 0<=nx<11 and 0<=ny<11:
+                if ((x, y), (nx, ny)) not in visited and ((nx, ny),(x, y)) not in visited:
+                    visited.add(((x, y),(nx, ny)))
+                x, y = nx, ny
+            
+        return len(visited)
+    
+    visited = set()
+    return bfs(5, 5)
